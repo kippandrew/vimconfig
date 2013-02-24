@@ -1,15 +1,11 @@
 
+" configure runtime path
 let &runtimepath = printf('%s/vimfiles,%s,%s/vimfiles/after', $VIM, $VIMRUNTIME, $VIM)
-
-" what is the name of the directory containing this file?
 let s:portable = expand('<sfile>:p:h')
-
-" add the directory to 'runtimepath'
 let &runtimepath = printf('%s,%s,%s/after', s:portable, &runtimepath, s:portable)
 
-" plugins
+" configure plugins
 let &runtimepath = printf('%s,%s/bundle/ctrlp.vim', &runtimepath, s:portable)
-
 
 " compat stuff
 set modelines=0     " CVE-2007-2438
