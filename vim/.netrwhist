@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/akipp/code/chef/cookbooks'
-let g:netrw_dirhist_2='/Users/akipp/code/chef/cookbooks/collectd'
-let g:netrw_dirhist_3='/Users/akipp/code/chef/cookbooks/collectd/templates'
-let g:netrw_dirhist_4='/Users/akipp/code/chef/cookbooks/dudu/recipes'
-let g:netrw_dirhist_5='/Users/akipp/code/gdash/graph_templates'
-let g:netrw_dirhist_6='/Users/akipp/code/chef/cookbooks/metrics/attributes'

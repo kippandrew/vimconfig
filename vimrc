@@ -4,7 +4,7 @@ let &runtimepath = printf('%s/vimfiles,%s,%s/vimfiles/after', $VIM, $VIMRUNTIME,
 let s:portable = expand('<sfile>:p:h')
 let &runtimepath = printf('%s,%s,%s/after', s:portable, &runtimepath, s:portable)
 
-" configure plugins
+" configure other plugins
 let &runtimepath = printf('%s,%s/bundle/ctrlp.vim', &runtimepath, s:portable)
 
 " compat stuff
