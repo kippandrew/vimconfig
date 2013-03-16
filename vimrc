@@ -24,6 +24,7 @@ set backspace=indent,eol,start
 set showmatch
 set autoindent
 set smartindent
+set nowrap
 highlight SpecialKey ctermfg=DarkGray
 
 " spelling
