@@ -1,19 +1,16 @@
-
 " configure runtime path
-let &runtimepath = printf('%s/vimfiles,%s,%s/vimfiles/after', $VIM, $VIMRUNTIME, $VIM)
+let &runtimepath = printf('%s', $VIMRUNTIME)
 let s:portable = expand('<sfile>:p:h')
-let &runtimepath = printf('%s,%s,%s/after', s:portable, &runtimepath, s:portable)
+let &runtimepath = printf('%s/vim/,%s', s:portable, &runtimepath)
 
 " configure other plugins
-let &runtimepath = printf('%s,%s/bundle/ctrlp.vim', &runtimepath, s:portable)
+let &runtimepath = printf('%s,%s/vim/bundle/ctrlp.vim/', &runtimepath, s:portable)
 
 " compat stuff
 set modelines=0     " CVE-2007-2438
 set nocompatible    "Use Vim defaults instead of 100% vi compatibility
 set backspace=2     " more powerful backspacing
 
-filetype on
-syntax on
 set viminfo='20,\"50
 
 " ui
@@ -45,8 +42,12 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
+filetype plugin indent on
+
+let g:python_version_2 = 1
+let g:python_highlight_all = 1
+
 augroup detectfiletype
-  filetype plugin indent on
   autocmd BufNewFile,BufRead *.txt set filetype=human
   autocmd BufNewFile,BufRead *.ino set filetype=ino
   autocmd BufNewFile,BufRead *.json set filetype=json
@@ -64,6 +65,8 @@ augroup python
   autocmd FileType python set tabstop=4
   autocmd FileType python set shiftwidth=4
   autocmd FileType python set expandtab
+  autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+  autocmd FileType python match OverLength /\%81v.\+/
 augroup END
 
 augroup ruby
@@ -89,4 +92,7 @@ autocmd BufReadPost *
 "in human-language files, automatically format everything at 80 chars:
 autocmd FileType mail,human
    \ set formatoptions+=t textwidth=80 nocindent
+
+" enable syntax 
+syntax enable
 
