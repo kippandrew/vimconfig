@@ -47,10 +47,35 @@ filetype plugin indent on
 let g:python_version_2 = 1
 let g:python_highlight_all = 1
 
+" Pep8 command
+function! DoPythonPep8()
+    let filename = expand('%:p')
+    echo l:filename
+    execute '! pep8 ' . l:filename
+endfunction
+command! Pep8 call DoPythonPep8()
+
+" Pylint command
+function! DoPythonPylint()
+    let filename = expand('%:p')
+    echo l:filename
+    execute '! pylint --report=n ' . l:filename
+endfunction
+command! Pylint call DoPythonPylint()
+
+" Pyflakes command
+function! DoPythonPyflakes()
+    let filename = expand('%:p')
+    echo l:filename
+    execute '! pyflakes ' . l:filename
+endfunction
+command! Pyflakes call DoPythonPyflakes()
+
 augroup detectfiletype
   autocmd BufNewFile,BufRead *.txt set filetype=human
   autocmd BufNewFile,BufRead *.ino set filetype=ino
   autocmd BufNewFile,BufRead *.json set filetype=json
+  autocmd BufNewFile,BufRead *.escript set filetype=erlang
 augroup END
 
 augroup ino
@@ -60,13 +85,14 @@ augroup ino
   autocmd FileType ino set expandtab
 augroup END
 
-augroup python
+augrou python
   autocmd FileType python set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
   autocmd FileType python set tabstop=4
   autocmd FileType python set shiftwidth=4
   autocmd FileType python set expandtab
   autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
   autocmd FileType python match OverLength /\%81v.\+/
+  autocmd BufWrite *.py call DoPep8()
 augroup END
 
 augroup ruby
