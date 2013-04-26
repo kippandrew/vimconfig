@@ -93,7 +93,7 @@ augrou python
   autocmd FileType python set expandtab
   autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
   autocmd FileType python match OverLength /\%81v.\+/
-  autocmd BufWrite *.py call DoPep8()
+  "autocmd BufWrite *.py call DoPep8()
 augroup END
 
 augroup ruby
