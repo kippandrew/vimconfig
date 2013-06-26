@@ -1,3 +1,6 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-export VIMCOMMAND="vim -u ${DIR}/vimrc"
+export VIMOPTIONS="-u ${DIR}/vimrc"
+export VIMCOMMAND="vim ${VIMOPTIONS}"
+export MVIMCOMMAND="mvim ${VIMOPTIONS}"
 alias vim="$VIMCOMMAND"
+alias mvim="$MVIMCOMMAND"
