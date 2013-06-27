@@ -1,14 +1,32 @@
+set nocompatible
+
 " configure runtime path
 let &runtimepath = printf('%s', $VIMRUNTIME)
 let s:portable = expand('<sfile>:p:h')
 let &runtimepath = printf('%s/vim/,%s', s:portable, &runtimepath)
 
 " configure other plugins
-let &runtimepath = printf('%s,%s/vim/bundle/ctrlp.vim/', &runtimepath, s:portable)
+let &runtimepath = printf('%s,%s/vim/bundle/ctrlp/', &runtimepath, s:portable)
+
+" configure vundle
+if has("gui_macvim")
+    filetype off
+
+    let &runtimepath = printf('%s,%s/vim/bundle/vundle/', &runtimepath, s:portable)
+
+    " enable vundle
+    call vundle#rc()
+
+    " do the vundle
+    Bundle 'gmarik/vundle'
+
+    " install my bundels
+    "Bundle 'Valloric/YouCompleteMe'
+
+endif
 
 " compat stuff
 set modelines=0     " CVE-2007-2438
-set nocompatible    "Use Vim defaults instead of 100% vi compatibility
 set backspace=2     " more powerful backspacing
 
 set viminfo='20,\"50
@@ -45,8 +63,16 @@ set expandtab
 
 filetype plugin indent on
 
+" configure vimflakes
 let g:python_version_2 = 1
 let g:python_highlight_all = 1
+
+" configure ctrlp
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll|ccp.o)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
 
 " Pep8 command
 function! DoPythonPep8()
@@ -72,11 +98,17 @@ function! DoPythonPyflakes()
 endfunction
 command! Pyflakes call DoPythonPyflakes()
 
+
 augroup detectfiletype
   autocmd BufNewFile,BufRead *.txt set filetype=human
   autocmd BufNewFile,BufRead *.ino set filetype=ino
   autocmd BufNewFile,BufRead *.json set filetype=json
   autocmd BufNewFile,BufRead *.escript set filetype=erlang
+  autocmd BufNewFile,BufRead CMakeLists.txt set filetype=cmake
+augroup END
+
+augroup git
+  autocmd FileType gitcommit set spell
 augroup END
 
 augroup ino
@@ -109,6 +141,10 @@ augroup javascript
   autocmd FileType json set expandtab
 augroup END
 
+augroup cmake 
+  autocmd FileType cmake set syntax=cmake
+augroup END
+
 "vim jumps always to the last edited line, if possible
 autocmd BufRead *,.* :normal '"
 autocmd BufReadPost *
@@ -123,3 +159,17 @@ autocmd FileType mail,human
 " enable syntax 
 syntax enable
 
+" sweet color scheme
+colorscheme vividchalk
+
+" mac vim gui config
+if has("gui_macvim")
+    " Monaco 14
+    set guifont=Monaco:h14
+endif
+
+" Do we have local vimrc?
+if filereadable('.vimrc.local')
+  " If so, go ahead and load it.
+  source .vimrc.local
+endif
