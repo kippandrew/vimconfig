@@ -104,11 +104,18 @@ augroup detectfiletype
   autocmd BufNewFile,BufRead *.ino set filetype=ino
   autocmd BufNewFile,BufRead *.json set filetype=json
   autocmd BufNewFile,BufRead *.escript set filetype=erlang
+  autocmd BufNewFile,BufRead *.go set filetype=go
   autocmd BufNewFile,BufRead CMakeLists.txt set filetype=cmake
 augroup END
 
 augroup git
   autocmd FileType gitcommit set spell
+augroup END
+
+augroup yaml
+  autocmd FileType yaml set tabstop=2
+  autocmd FileType yaml set shiftwidth=2
+  autocmd FileType yaml set expandtab
 augroup END
 
 augroup ino
@@ -118,7 +125,7 @@ augroup ino
   autocmd FileType ino set expandtab
 augroup END
 
-augrou python
+augroup python
   autocmd FileType python set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
   autocmd FileType python set tabstop=4
   autocmd FileType python set shiftwidth=4
@@ -141,7 +148,7 @@ augroup javascript
   autocmd FileType json set expandtab
 augroup END
 
-augroup cmake 
+augroup cmake
   autocmd FileType cmake set syntax=cmake
 augroup END
 
@@ -156,7 +163,7 @@ autocmd BufReadPost *
 autocmd FileType mail,human
    \ set formatoptions+=t textwidth=80 nocindent
 
-" enable syntax 
+" enable syntax
 syntax enable
 
 " sweet color scheme
