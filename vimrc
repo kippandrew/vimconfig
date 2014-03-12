@@ -21,7 +21,7 @@ if has("gui_macvim")
     Bundle 'gmarik/vundle'
 
     " install my bundels
-    "Bundle 'Valloric/YouCompleteMe'
+    Bundle 'nathanaelkane/vim-indent-guides'
 
 endif
 
@@ -106,6 +106,8 @@ augroup detectfiletype
   autocmd BufNewFile,BufRead *.escript set filetype=erlang
   autocmd BufNewFile,BufRead *.go set filetype=go
   autocmd BufNewFile,BufRead CMakeLists.txt set filetype=cmake
+  autocmd BufNewFile,BufRead Makevars set filetype=make
+  autocmd BufNewFile,BufRead Makevars.win set filetype=make
 augroup END
 
 augroup git
@@ -119,7 +121,7 @@ augroup yaml
 augroup END
 
 augroup ino
-  autocmd FileType ino set syntax=c
+  autocmd FileType ino set syntax=cpp
   autocmd FileType ino set tabstop=2
   autocmd FileType ino set shiftwidth=2
   autocmd FileType ino set expandtab
@@ -141,6 +143,12 @@ augroup ruby
   autocmd FileType ruby set expandtab
 augroup END
 
+augroup cpp
+  autocmd FileType cpp set tabstop=4
+  autocmd FileType cpp set shiftwidth=4
+  autocmd FileType cpp set expandtab
+augroup END
+
 augroup javascript
   autocmd FileType json set syntax=javascript
   autocmd FileType json set tabstop=4
@@ -152,6 +160,9 @@ augroup cmake
   autocmd FileType cmake set syntax=cmake
 augroup END
 
+augroup go
+  autocmd FileType go set noexpandtab
+augroup END
 "vim jumps always to the last edited line, if possible
 autocmd BufRead *,.* :normal '"
 autocmd BufReadPost *
