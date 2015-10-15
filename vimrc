@@ -7,23 +7,18 @@ let &runtimepath = printf('%s/vim/,%s', s:portable, &runtimepath)
 
 " configure other plugins
 let &runtimepath = printf('%s,%s/vim/bundle/ctrlp/', &runtimepath, s:portable)
+let &runtimepath = printf('%s,%s/vim/bundle/vundle/', &runtimepath, s:portable)
 
-" configure vundle
-if has("gui_macvim")
-    filetype off
+" enable vundle
+call vundle#rc()
 
-    let &runtimepath = printf('%s,%s/vim/bundle/vundle/', &runtimepath, s:portable)
+" do the vundle
+Bundle 'gmarik/vundle'
 
-    " enable vundle
-    call vundle#rc()
-
-    " do the vundle
-    Bundle 'gmarik/vundle'
-
-    " install my bundels
-    Bundle 'nathanaelkane/vim-indent-guides'
-
-endif
+" install my bundels
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'leafo/moonscript-vim'
 
 " compat stuff
 set modelines=0     " CVE-2007-2438
@@ -34,13 +29,17 @@ set viminfo='20,\"50
 " ui
 set number
 set ruler
-set bg=dark
+"set bg=dark
 set backspace=indent,eol,start
 set showmatch
 set autoindent
 set smartindent
 set nowrap
 highlight SpecialKey ctermfg=DarkGray
+
+" sweet color scheme
+colorscheme slate
+
 
 " spelling
 let &spellfile = printf('%s/vim/spell/en.utf-8.add', s:portable)
@@ -105,6 +104,7 @@ augroup detectfiletype
   autocmd BufNewFile,BufRead *.json set filetype=json
   autocmd BufNewFile,BufRead *.escript set filetype=erlang
   autocmd BufNewFile,BufRead *.go set filetype=go
+  autocmd BufNewFile,BufRead *.go set filetype=coffee
   autocmd BufNewFile,BufRead CMakeLists.txt set filetype=cmake
   autocmd BufNewFile,BufRead Makevars set filetype=make
   autocmd BufNewFile,BufRead Makevars.win set filetype=make
@@ -133,7 +133,7 @@ augroup python
   autocmd FileType python set shiftwidth=4
   autocmd FileType python set expandtab
   autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-  autocmd FileType python match OverLength /\%81v.\+/
+  "autocmd FileType python match OverLength /\%81v.\+/
   "autocmd BufWrite *.py call DoPep8()
 augroup END
 
@@ -156,6 +156,13 @@ augroup javascript
   autocmd FileType json set expandtab
 augroup END
 
+augroup coffee
+  autocmd FileType coffee set syntax=coffee
+  autocmd FileType coffee set tabstop=2
+  autocmd Filetype coffee set shiftwidth=2
+  autocmd FileType coffee set expandtab
+augroup END
+
 augroup cmake
   autocmd FileType cmake set syntax=cmake
 augroup END
@@ -176,9 +183,6 @@ autocmd FileType mail,human
 
 " enable syntax
 syntax enable
-
-" sweet color scheme
-colorscheme vividchalk
 
 " mac vim gui config
 if has("gui_macvim")
