@@ -1,24 +1,25 @@
 set nocompatible
+filetype off
 
 " configure runtime path
+let s:portable_dir = expand('<sfile>:p:h')
 let &runtimepath = printf('%s', $VIMRUNTIME)
-let s:portable = expand('<sfile>:p:h')
-let &runtimepath = printf('%s/vim/,%s', s:portable, &runtimepath)
-
-" configure other plugins
-let &runtimepath = printf('%s,%s/vim/bundle/ctrlp/', &runtimepath, s:portable)
-let &runtimepath = printf('%s,%s/vim/bundle/vundle/', &runtimepath, s:portable)
+let &runtimepath = printf('%s/vim/,%s', s:portable_dir, &runtimepath)
 
 " enable vundle
-call vundle#rc()
+let &runtimepath = printf('%s/vim/bundle/vundle/, %s', s:portable_dir, &runtimepath)
+call vundle#begin()
 
-" do the vundle
-Bundle 'gmarik/vundle'
+" manage Vundle
+"Plugin 'VundleVim/Vundle.vim'
 
-" install my bundels
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'leafo/moonscript-vim'
+" install plugins 
+Plugin 'fatih/vim-go'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'leafo/moonscript-vim'
+
+call vundle#end()
 
 " compat stuff
 set modelines=0     " CVE-2007-2438
@@ -38,11 +39,10 @@ set nowrap
 highlight SpecialKey ctermfg=DarkGray
 
 " sweet color scheme
-colorscheme slate
-
+colorscheme monokai
 
 " spelling
-let &spellfile = printf('%s/vim/spell/en.utf-8.add', s:portable)
+let &spellfile = printf('%s/vim/spell/en.utf-8.add', s:portable_dir)
 
 " list
 set list
@@ -97,14 +97,13 @@ function! DoPythonPyflakes()
 endfunction
 command! Pyflakes call DoPythonPyflakes()
 
-
 augroup detectfiletype
   autocmd BufNewFile,BufRead *.txt set filetype=human
   autocmd BufNewFile,BufRead *.ino set filetype=ino
   autocmd BufNewFile,BufRead *.json set filetype=json
   autocmd BufNewFile,BufRead *.escript set filetype=erlang
   autocmd BufNewFile,BufRead *.go set filetype=go
-  autocmd BufNewFile,BufRead *.go set filetype=coffee
+  autocmd BufNewFile,BufRead *.coffee set filetype=coffee
   autocmd BufNewFile,BufRead CMakeLists.txt set filetype=cmake
   autocmd BufNewFile,BufRead Makevars set filetype=make
   autocmd BufNewFile,BufRead Makevars.win set filetype=make
@@ -133,8 +132,20 @@ augroup python
   autocmd FileType python set shiftwidth=4
   autocmd FileType python set expandtab
   autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-  "autocmd FileType python match OverLength /\%81v.\+/
-  "autocmd BufWrite *.py call DoPep8()
+  autocmd FileType python match OverLength /\%81v.\+/
+  autocmd BufWrite *.py call DoPep8()
+augroup END
+
+" vim -b : edit binary using xxd-format!
+augroup binary
+  au!
+  au BufReadPre  *.bin let &bin=1
+  au BufReadPost *.bin if &bin | %!xxd
+  au BufReadPost *.bin set ft=xxd | endif
+  au BufWritePre *.bin if &bin | %!xxd -r
+  au BufWritePre *.bin endif
+  au BufWritePost *.bin if &bin | %!xxd
+  au BufWritePost *.bin set nomod | endif
 augroup END
 
 augroup ruby
