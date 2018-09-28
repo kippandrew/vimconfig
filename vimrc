@@ -13,7 +13,8 @@ call vundle#begin()
 " manage Vundle
 "Plugin 'VundleVim/Vundle.vim'
 
-" install plugins 
+" install plugins
+Plugin 'kien/ctrlp.vim'
 Plugin 'fatih/vim-go'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'kchmck/vim-coffee-script'
@@ -30,7 +31,7 @@ set viminfo='20,\"50
 " ui
 set number
 set ruler
-"set bg=dark
+set bg=dark
 set backspace=indent,eol,start
 set showmatch
 set autoindent
@@ -61,10 +62,6 @@ set shiftwidth=4
 set expandtab
 
 filetype plugin indent on
-
-" configure vimflakes
-let g:python_version_2 = 1
-let g:python_highlight_all = 1
 
 " configure ctrlp
 let g:ctrlp_custom_ignore = {
@@ -102,7 +99,6 @@ augroup detectfiletype
   autocmd BufNewFile,BufRead *.ino set filetype=ino
   autocmd BufNewFile,BufRead *.json set filetype=json
   autocmd BufNewFile,BufRead *.escript set filetype=erlang
-  autocmd BufNewFile,BufRead *.go set filetype=go
   autocmd BufNewFile,BufRead *.coffee set filetype=coffee
   autocmd BufNewFile,BufRead CMakeLists.txt set filetype=cmake
   autocmd BufNewFile,BufRead Makevars set filetype=make
@@ -133,7 +129,6 @@ augroup python
   autocmd FileType python set expandtab
   autocmd FileType python highlight OverLength ctermbg=red ctermfg=white guibg=#592929
   autocmd FileType python match OverLength /\%81v.\+/
-  autocmd BufWrite *.py call DoPep8()
 augroup END
 
 " vim -b : edit binary using xxd-format!
@@ -181,6 +176,7 @@ augroup END
 augroup go
   autocmd FileType go set noexpandtab
 augroup END
+
 "vim jumps always to the last edited line, if possible
 autocmd BufRead *,.* :normal '"
 autocmd BufReadPost *
