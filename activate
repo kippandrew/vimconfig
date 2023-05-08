@@ -1,6 +1,13 @@
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-export VIMOPTIONS="-u ${DIR}/vimrc"
+export VIMOPTIONS="-u $HOME/Code/kippandrew/vimconfig/vimrc"
 export VIMCOMMAND="vim ${VIMOPTIONS}"
 export MVIMCOMMAND="mvim ${VIMOPTIONS}"
 alias vim="$VIMCOMMAND"
 alias mvim="$MVIMCOMMAND"
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+VUNDLE_DIR=${SCRIPT_DIR}/vim/bundle/vundle
+
+if [ ! "$(ls -A $DIR)" ]; then
+    echo "Installing Vundle..."
+    git clone https://github.com/VundleVim/Vundle.vim.git ${VUNDLE_DIR}
+fi

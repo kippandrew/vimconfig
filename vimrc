@@ -6,12 +6,12 @@ let s:portable_dir = expand('<sfile>:p:h')
 let &runtimepath = printf('%s', $VIMRUNTIME)
 let &runtimepath = printf('%s/vim/,%s', s:portable_dir, &runtimepath)
 
-" enable vundle
+" enable Vundle
 let &runtimepath = printf('%s/vim/bundle/vundle/, %s', s:portable_dir, &runtimepath)
 call vundle#begin()
 
 " manage Vundle
-"Plugin 'VundleVim/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 " install plugins
 Plugin 'kien/ctrlp.vim'
