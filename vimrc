@@ -100,6 +100,7 @@ augroup detectfiletype
   autocmd BufNewFile,BufRead *.json set filetype=json
   autocmd BufNewFile,BufRead *.escript set filetype=erlang
   autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+  autocmd BufNewFile,BufRead *.md set filetype=markdown
   autocmd BufNewFile,BufRead CMakeLists.txt set filetype=cmake
   autocmd BufNewFile,BufRead Makevars set filetype=make
   autocmd BufNewFile,BufRead Makevars.win set filetype=make
@@ -175,6 +176,15 @@ augroup END
 
 augroup go
   autocmd FileType go set noexpandtab
+augroup END
+
+augroup markdown
+    autocmd!
+    autocmd FileType markdown setlocal textwidth=0
+    autocmd FileType markdown setlocal wrap
+    autocmd FileType markdown setlocal linebreak
+    autocmd FileType markdown setlocal conceallevel=0  " Show all markdown syntax
+    autocmd FileType markdown setlocal spell
 augroup END
 
 "vim jumps always to the last edited line, if possible
